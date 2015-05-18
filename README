@@ -1,0 +1,23 @@
+TetriTake
+=======================
+
+This is a small game written in C++ for the 4nd SFML game jam. Enjoy!
+
+
+
+Download
+--------
+
+A Mac OS X Application bundle is available on Github at <https://github.com/tomgalvin594/TetriTake>. It is bundled with it’s dependancies SFML and Thor, and so it should be drag-and-drop.
+
+Building from Source
+--------------------
+
+Since SFML/Thor/CMake are cross-platform, you should have no trouble compiling this game for Linux or Windows. However, the Cmake files are currently written to build an OS X bundle, and will require some modification for other systems.
+
+Game Howto
+------------
+Going of the jam theme of "from the end to the beginning", TetriTake is basically a game of Tetris played backwards, so rather than placing new pieces on the board, your job is to cut pieces out. This can be done using the mouse to select 4 pieces (by either clicking on them individually or simply dragging the mouse) and then moving the piece to the top of the screen. Use WSAD/Arrow keys to move a piece, where S/Down rotates the piece. Finally, if you get stuck, click on one of the arrows on the lefthand side to insert a new line of tiles. Happy gaming!
+
+ - Thomas Galvin (tomgalvin594@gmail.com)
+
