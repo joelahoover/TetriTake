@@ -1,7 +1,7 @@
 TetriTake
 =======================
 
-This is a small game written in C++ for the 4nd SFML game jam. Enjoy!
+This is a small reverse-Tetris-like game written in C++ for the 4nd SFML game jam. Enjoy!
 
 
 
@@ -10,14 +10,30 @@ Download
 
 A Mac OS X Application bundle is available on Github at <https://github.com/tomgalvin594/TetriTake>. It is bundled with it’s dependancies SFML and Thor, and so it should be drag-and-drop.
 
+
 Building from Source
 --------------------
 
-Since SFML/Thor/CMake are cross-platform, you should have no trouble compiling this game for Linux or Windows. However, the Cmake files are currently written to build an OS X bundle, and will require some modification for other systems.
+This project is build using Cmake, and depends on the libraries SFML 2.3, Thor (commit b23beac). Since these are all cross-platform, you should have no trouble compiling this game for Linux or Windows. However, the Cmake files are currently written to build an OS X bundle, and will require some modification for other systems. You will also need to add an implementation of include/resourcePath.hpp to get the path to the resources folder.
+
 
 Game Howto
 ------------
-Going of the jam theme of "from the end to the beginning", TetriTake is basically a game of Tetris played backwards, so rather than placing new pieces on the board, your job is to cut pieces out. This can be done using the mouse to select 4 pieces (by either clicking on them individually or simply dragging the mouse) and then moving the piece to the top of the screen. Use WSAD/Arrow keys to move a piece, where S/Down rotates the piece. Finally, if you get stuck, click on one of the arrows on the lefthand side to insert a new line of tiles. Happy gaming!
+Going off the jam theme of "from the end to the beginning", TetriTake is basically a game of Tetris played backwards, so rather than placing new pieces on the board, your job is to select 4 blocks of the same color to create a piece, and then free it from the other blocks. 
+
+Controls:
+  Left click - select blocks
+  Right click/space - deselect blocks or return the piece to original location
+  W/Up arrow - move the piece upwards
+  A/Left arrow - move the piece to the left
+  D/Right arrow - move the piece to the right
+  S/Down arrow - rotate the piece
+  Q/Esacpe - quit
+
+Once a piece is open to the top of the screen, it will automatically be pulled upwards. If you ever get stuck, click on one of the purple arrows on the lefthand side to insert a fresh line of tiles (minus the piece that completes it).
+
+
+And as always, Happy Gaming!
 
  - Thomas Galvin (tomgalvin594@gmail.com)
 
