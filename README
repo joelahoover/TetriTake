@@ -4,7 +4,6 @@ TetriTake
 This is a small reverse-Tetris-like game written in C++ for the 4nd SFML game jam. Enjoy!
 
 
-
 Download
 --------
 
@@ -31,6 +30,17 @@ Controls:
   Q/Esacpe - quit
 
 Once a piece is open to the top of the screen, it will automatically be pulled upwards. If you ever get stuck, click on one of the purple arrows on the lefthand side to insert a fresh line of tiles (minus the piece that completes it).
+
+
+Credits
+---------
+
+ - All of the graphics and coding was done by me, Thomas Galvin.
+ - The font, "Press Start", was created by codeman38 (area38.net).
+ - SFML was created by Laurent Gomila and the rest of the SFML team (github.com/SFML/SFML). 
+ - Thor was created by Jan Haller.
+
+Thanks to everyone who helps make little projects like these possible.
 
 
 And as always, Happy Gaming!
