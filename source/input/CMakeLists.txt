@@ -1,5 +1,10 @@
+file(GLOB LOCAL_SOURCES
+	"*.cpp"
+	"*.hpp"
+	)
+
 set(PROJECT_SOURCES
     ${PROJECT_SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/action_manager.cpp
+	${LOCAL_SOURCES}
     PARENT_SCOPE
     )

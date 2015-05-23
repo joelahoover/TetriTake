@@ -1,11 +1,10 @@
+file(GLOB LOCAL_SOURCES
+	"*.cpp"
+	"*.hpp"
+	)
+
 set(PROJECT_SOURCES
     ${PROJECT_SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/arrow.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/block.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/board.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/next_shape.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/outline_box.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/score_counter.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/shape.cpp
+	${LOCAL_SOURCES}
     PARENT_SCOPE
     )

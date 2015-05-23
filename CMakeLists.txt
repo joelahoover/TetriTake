@@ -25,6 +25,7 @@ include_directories("${PROJECT_BINARY_DIR}/include")
 # -----------------------------------------
 
 add_subdirectory(source)
+add_subdirectory(include)
 if(APPLE)
 	add_subdirectory(osx)
 endif()
@@ -54,7 +55,7 @@ if(THOR_FOUND)
 endif()
 
 if(APPLE)
-	set(MAKE_INSTALL_NAME_DIR @executable_path)
+	set(MAKE_INSTALL_NAME_DIR @rpath)
 	
 	# Add Apple libraries
 	FIND_LIBRARY(FOUNDATION_LIBRARY Foundation)
@@ -63,25 +64,19 @@ if(APPLE)
 	# Add Info.plist to bundle
 	set_target_properties(${EXECUTABLE_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/osx/Info.plist.in)
 
-	# Copy SFML frameworks and libthor into bundle
+	# Copy the assets and levels into the bundle
 	set(BUNDLE_PATH ${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE_NAME}.app)
-	set(TARGET_FRAMEWORKS_DIR ${BUNDLE_PATH}/Contents/Frameworks)
-	add_custom_command(TARGET ${EXECUTABLE_NAME}
-		POST_BUILD
-		COMMAND rm -Rf ${TARGET_FRAMEWORKS_DIR} && mkdir -p ${TARGET_FRAMEWORKS_DIR} && cp -Rn ${SFML_LIBRARIES} ${THOR_LIBRARY} ${TARGET_FRAMEWORKS_DIR}
-		)
-	
-	# Attempt at using BundleUtilities, doesn't work
-	#set(EXTERNAL_LIBRARIES ${THOR_LIBRARY} ${SFML_LIBRARIES})
-	#install(CODE "include(BundleUtilities)
-	#	fixup_bundle(\"${BUNDLE_PATH}/Contents/MacOS/${EXECUTABLE_NAME}\" \"\" \"${EXTERNAL_LIBRARIES};/System/Frameworks\")"
-	#	COMPONENT Runtime)
+	install(DIRECTORY ${PROJECT_SOURCE_DIR}/resources/ DESTINATION ${BUNDLE_PATH}/Contents/Resources)
 
-	# Copy the resources into the bundle
-	set(TARGET_RESOURCE_DIR ${BUNDLE_PATH}/Contents/Resources)
-	set(RESOURCE_DIR ${PROJECT_SOURCE_DIR}/resources)
-	add_custom_command(TARGET ${EXECUTABLE_NAME}
-    	POST_BUILD
-    	COMMAND mkdir -p ${TARGET_RESOURCE_DIR} && tar -c -C "${RESOURCE_DIR}" --exclude .DS_Store --exclude CVS --exclude .svn --exclude .git -H . | tar -x -C ${TARGET_RESOURCE_DIR}
-		)
+	# Make the bundle drag-n-drop
+	get_filename_component(THOR_LIBRARY_DIR ${THOR_LIBRARY} DIRECTORY)
+	get_filename_component(SFML_LIBRARY_DIR ${SFML_SYSTEM_LIBRARY} DIRECTORY)
+	set(LIBRARIES_DIR ${THOR_LIBRARY_DIR};${SFML_LIBRARY_DIR})
+	# Copy freetype manually, since it otherwise just causes problems (I think because it uses @executable_path instead of @rpath)
+	install(DIRECTORY ${SFML_LIBRARY_DIR}/freetype.framework DESTINATION ${BUNDLE_PATH}/Contents/Frameworks)
+	# Let BundleUtilities do everything else automaitcally
+	install(CODE "
+		include(BundleUtilities)
+		fixup_bundle(\"${BUNDLE_PATH}\" \"\" \"${LIBRARIES_DIR}\")
+		" COMPONENT Runtime)
 endif()
